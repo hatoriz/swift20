@@ -1,18 +1,29 @@
-// Lesson 2-1 Cyclic Rotation
 import Foundation
 
-public func solution(inout A: [Int], _K: Int) -> [Int]{
-    var newArray: [Int] = []
 
-    //add "_K" element from A into newArray from backward
-    for index in 0..<_K {
-        print(index)
-        newArray[index] += A[A.count-index]
+public func solution(inout A : [Int], _ K : Int) -> [Int] {
+
+    let length = A.count
+    
+    guard length > 1  else {
+     return A
     }
     
-    //add the rest of A for N-K to newArray
-    return [1,2]
+    if K == 0 {
+        return A
+    }
+    
+    for index in 1...K {
+        A.insert(A[A.count-index], atIndex: A.startIndex)
+    }
+    
+    for index in 1...K {
+        A.removeAtIndex(length + K - index)
+    }
+    
+    return A
 }
 
-var A = [0,1,2,3,4,5,6,7]
-solution(&A, _K: 3)
+var testArr = [0,1,2,3,4,5,6,7,8,9,1,2,3,4,5]
+var outArr = solution(&testArr,12)
+
